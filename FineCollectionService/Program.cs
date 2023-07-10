@@ -3,8 +3,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IFineCalculator, HardCodedFineCalculator>();
 
-builder.Services.AddHttpClient();
-builder.Services.AddSingleton<VehicleRegistrationService>();
+builder.Services.AddSingleton<VehicleRegistrationService>(_ => 
+    new VehicleRegistrationService(DaprClient.CreateInvokeHttpClient(
+        "vehicleregistrationservice", "http://localhost:3601")));
 
 builder.Services.AddControllers();
 
