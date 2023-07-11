@@ -1,6 +1,10 @@
 // create web-app
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDaprClient(builder => builder
+    .UseHttpEndpoint($"http://localhost:3600")
+    .UseGrpcEndpoint($"http://localhost:60000"));
+
 builder.Services.AddSingleton<ISpeedingViolationCalculator>(
     new DefaultSpeedingViolationCalculator("A12", 10, 100, 5));
 builder.Services.AddHttpClient();

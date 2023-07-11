@@ -23,10 +23,27 @@ public class CollectionController : ControllerBase
         }
     }
 
+    // TODO: remove this endpoint?
+    // [Route("/dapr/subscribe")]
+    // [HttpGet()]
+    // public object Subscribe()
+    // {
+    //     return new object[]
+    //     {
+    //         new
+    //         {
+    //             pubsubname = "pubsub",
+    //             topic = "speedingviolations",
+    //             route = "/collectfine"
+    //         }
+    //     };
+    // }
+
+    [Topic("pubsub", "speedingviolations")]
     [Route("collectfine")]
     [HttpPost()]
     public async Task<ActionResult> CollectFine(SpeedingViolation speedingViolation)
-    {
+    {        
         decimal fine = _fineCalculator.CalculateFine(_fineCalculatorLicenseKey!, speedingViolation.ViolationInKmh);
 
         // get owner info
