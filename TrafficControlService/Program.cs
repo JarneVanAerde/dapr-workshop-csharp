@@ -8,7 +8,7 @@ builder.Services.AddDaprClient(builder => builder
 builder.Services.AddSingleton<ISpeedingViolationCalculator>(
     new DefaultSpeedingViolationCalculator("A12", 10, 100, 5));
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IVehicleStateRepository, InMemoryVehicleStateRepository>();
+builder.Services.AddSingleton<IVehicleStateRepository, DaprVehicleStateRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
