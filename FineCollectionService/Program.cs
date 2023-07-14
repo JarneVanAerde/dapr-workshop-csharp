@@ -7,6 +7,10 @@ builder.Services.AddSingleton<VehicleRegistrationService>(_ =>
     new VehicleRegistrationService(DaprClient.CreateInvokeHttpClient(
         "vehicleregistrationservice", "http://localhost:3601")));
 
+builder.Services.AddDaprClient(builder => builder
+    .UseHttpEndpoint($"http://localhost:3601")
+    .UseGrpcEndpoint($"http://localhost:60001"));
+
 builder.Services.AddControllers().AddDapr();
 
 var app = builder.Build();
